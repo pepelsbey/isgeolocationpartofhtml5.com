@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<title>Is Geolocation part of HTML5?</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			}
+		body {
+			background: #A5BFDD;
+			}
+		#map {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			color: #A5BFDD;
+			}
+		.no-js {
+			background: #A5BFDD url(answer.svg) 60% 50% no-repeat;
+			}
+	</style>
+	<script>
+		document.documentElement.className = 'js';
+
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					successPosition,
+					errorPosition
+				);
+			} else {
+				errorPosition();
+			}
+		}
+
+		function successPosition(position) {
+			loadMap(
+				position.coords.latitude,
+				position.coords.longitude, 14
+			);
+		}
+
+		function errorPosition() {
+			loadMap(
+				(Math.cos(Math.random() * 70) * 70).toFixed(6),
+				(Math.cos(Math.random() * 180) * 180).toFixed(6), 3
+			);
+		}
+
+		function loadMap(latitude, longitude, level) {
+
+			var position = new google.maps.LatLng(latitude, longitude)
+
+			var map = new google.maps.Map(
+				document.getElementById('map'),
+				{
+					zoom: level,
+					center: position,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+			);
+
+			var answer = {
+		        url: 'answer.svg',
+		        anchor: new google.maps.Point(64, 278),
+		        scaledSize: new google.maps.Size(242, 278)
+		    }
+
+			var icon = new google.maps.Marker({
+				position: position,
+				map: map,
+				icon: answer
+			})
+		}
+
+		window.onload = getLocation;
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSWOpxSqLN6lsau6J7tOlrA5n1I-dsC1k"></script>
+</head>
+<body>
+	<h1 id="map">No.</h1>
+	<!-- Answered by Vadim Makeev, pepelsbey.net -->
+	<script>(function(b,c,a){(c[a]=c[a]||[]).push(function(){try{c.yaCounter957281=new Ya.Metrika({id:957281})}catch(a){}});var e=b.getElementsByTagName('script')[0],d=b.createElement('script'),a=function(){e.parentNode.insertBefore(d,e)};d.async=!0;d.src='https://mc.yandex.ru/metrika/watch.js';'[object Opera]'==c.opera?b.addEventListener('DOMContentLoaded',a):a()})(document,window,'yandex_metrika_callbacks');</script><noscript><img src="https://mc.yandex.ru/watch/957281" alt=""></noscript>
+</body>
+</html>
