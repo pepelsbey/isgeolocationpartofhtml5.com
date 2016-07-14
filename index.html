@@ -3,8 +3,9 @@
 <head>
 	<title>Is Geolocation part of HTML5?</title>
 	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="manifest" href="/.webmanifest">
+	<link rel="apple-touch-icon" type="image/png" href="/images/icon-228x228.png">
 	<style>
 		html, body {
 			margin: 0;
@@ -25,7 +26,7 @@
 			color: #A5BFDD;
 			}
 		.no-js {
-			background: #A5BFDD url(answer.svg) 60% 50% no-repeat;
+			background: #A5BFDD url(images/answer.svg) 60% 50% no-repeat;
 			}
 	</style>
 	<script>
@@ -70,7 +71,7 @@
 			);
 
 			var answer = {
-		        url: 'answer.svg',
+		        url: 'images/answer.svg',
 		        anchor: new google.maps.Point(64, 278),
 		        scaledSize: new google.maps.Size(242, 278)
 		    }
@@ -87,7 +88,10 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSWOpxSqLN6lsau6J7tOlrA5n1I-dsC1k"></script>
 </head>
 <body>
-	<h1 id="map">No.</h1>
+	<div id="map">
+		<h1>Is Geolocation part of HTML5?</h1>
+		<p>No.</p>
+	</div>
 	<!-- Answered by Vadim Makeev, pepelsbey.net -->
 	<script>(function(b,c,a){(c[a]=c[a]||[]).push(function(){try{c.yaCounter957281=new Ya.Metrika({id:957281})}catch(a){}});var e=b.getElementsByTagName('script')[0],d=b.createElement('script'),a=function(){e.parentNode.insertBefore(d,e)};d.async=!0;d.src='https://mc.yandex.ru/metrika/watch.js';'[object Opera]'==c.opera?b.addEventListener('DOMContentLoaded',a):a()})(document,window,'yandex_metrika_callbacks');</script><noscript><img src="https://mc.yandex.ru/watch/957281" alt=""></noscript>
 </body>
