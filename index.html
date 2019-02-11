@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Is Geolocation part of HTML5?</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="manifest" href="/.webmanifest">
-	<link rel="apple-touch-icon" type="image/png" href="/images/icon-228x228.png">
+	<title>Is Geolocation part of HTML5?</title>
+	<link rel="manifest" href=".webmanifest">
+	<link rel="apple-touch-icon" type="image/png" href="images/icon-228x228.png">
 	<style>
 		html, body {
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			}
+		}
+
 		.map {
-			background: #A5BFDD;
-			color: #A5BFDD;
-			}
+			background: #a3ccff;
+		}
+
 		.question,
 		.answer {
 			position: absolute;
 			width: 0;
 			height: 0;
 			overflow: hidden;
-			}
+		}
+
 		.spinner {
 			position: absolute;
 			top: 50%;
@@ -32,26 +34,28 @@
 			width: 100px;
 			height: 100px;
 			border-radius: 50%;
-			background: #fff;
+			background: #ffffff;
 			background: linear-gradient(
 				to right,
-				#fff 10%,
+				#ffffff 10%,
 				rgba(255, 255, 255, 0) 50%
 				);
 			text-indent: -500px;
 			content: '';
 			animation: spinner 1.4s infinite linear;
 			transform: translateZ(0);
-			}
+		}
+
 		.spinner::before {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 50%;
 			height: 50%;
-			background: #fff;
+			background: #ffffff;
 			content: '';
-			}
+		}
+
 		.spinner::after {
 			position: absolute;
 			top: 0;
@@ -62,18 +66,19 @@
 			width: 75%;
 			height: 75%;
 			border-radius: 50%;
-			background: #A5BFDD;
+			background: #a3ccff;
 			content: '';
-			}
+		}
+
 		@keyframes spinner {
 			0% { transform: rotate(0deg) }
 			100% { transform: rotate(360deg) }
-			}
+		}
 	</style>
 	<noscript>
 		<style>
 			body {
-				background: #A5BFDD url(images/answer.svg) 50% 50% no-repeat;
+				background: #a3ccff url(images/answer.svg) 50% 50% no-repeat;
 				}
 		</style>
 	</noscript>
@@ -134,15 +139,15 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSWOpxSqLN6lsau6J7tOlrA5n1I-dsC1k"></script>
 </head>
 <body class="map" id="map">
-	<!--
-		Answered by Vadim Makeev
-		github.com/pepelsbey/isgeolocationpartofhtml5.com
-	-->
-
 	<h1 class="question">Is Geolocation part of HTML5?</h1>
 	<p class="answer">No.</p>
 
 	<div class="spinner"></div>
 
+	<!--
+		Author: Vadim Makeev
+		Twitter: https://twitter.com/@pepelsbey_
+		Code: https://github.com/pepelsbey/isgeolocationpartofhtml5.com
+	-->
 </body>
 </html>
