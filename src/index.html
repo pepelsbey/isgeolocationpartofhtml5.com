@@ -4,8 +4,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Is Geolocation part of HTML5?</title>
-	<link rel="manifest" href=".webmanifest">
-	<link rel="apple-touch-icon" type="image/png" href="images/icon-228x228.png">
+	<link rel="manifest" href="webmanifest.json">
+	<link rel="preconnect" href="https://maps.googleapis.com" crossorigin>
+	<link rel="preconnect" href="https://maps.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<style>
 		html, body {
 			margin: 0;
@@ -39,7 +42,7 @@
 				to right,
 				#ffffff 10%,
 				rgba(255, 255, 255, 0) 50%
-				);
+			);
 			text-indent: -500px;
 			content: '';
 			animation: spinner 1.4s infinite linear;
@@ -78,8 +81,8 @@
 	<noscript>
 		<style>
 			body {
-				background: #a3ccff url(images/answer.svg) 50% 50% no-repeat;
-				}
+				background: #a3ccff url('images/answer.svg') 50% 50% no-repeat;
+			}
 		</style>
 	</noscript>
 	<script>
