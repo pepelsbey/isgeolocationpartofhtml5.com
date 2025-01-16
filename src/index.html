@@ -10,25 +10,21 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<style>
-		html, body {
+		body {
 			margin: 0;
-			padding: 0;
-			height: 100%;
-		}
-
-		.map {
+			height: 100vh;
 			background: #a3ccff;
+			overflow: hidden;
 		}
 
-		.question,
-		.answer {
+		h1, p {
 			position: absolute;
 			width: 0;
 			height: 0;
 			overflow: hidden;
 		}
 
-		.spinner {
+		spin-ner {
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -41,15 +37,13 @@
 			background: linear-gradient(
 				to right,
 				#ffffff 10%,
-				rgba(255, 255, 255, 0) 50%
+				rgb(255 255 255 / 0%) 50%
 			);
-			text-indent: -500px;
-			content: '';
 			animation: spinner 1.4s infinite linear;
 			transform: translateZ(0);
 		}
 
-		.spinner::before {
+		spin-ner::before {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -59,7 +53,7 @@
 			content: '';
 		}
 
-		.spinner::after {
+		spin-ner::after {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -86,68 +80,95 @@
 		</style>
 	</noscript>
 	<script>
-		function getLocation() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(
-					successPosition,
-					errorPosition
-				);
-			} else {
-				errorPosition();
+		(g=>{var h,a,k,p='The Google Maps JavaScript API',c='google',l='importLibrary',q='__ib__',m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement('script'));e.set('libraries',[...r]+'');for(k in g)e.set(k.replace(/[A-Z]/g,t=>'_'+t[0].toLowerCase()),g[k]);e.set('callback',c+'.maps.'+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+' could not load.'));a.nonce=m.querySelector('script[nonce]')?.nonce||'';m.head.append(a)}));d[l]?console.warn(p+' only loads once. Ignoring:',g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+		  key: 'AIzaSyC1vfMs6nu_l-Niyr3RxMdrhicenBu5Trk',
+		  v: 'weekly',
+		});
+	</script>
+	<script>
+		const mapConfig = {
+			zoom: {
+				default: 3,
+				location: 14
+			},
+			mapId: 'ddaed61e12642fd8',
+			mapType: 'roadmap'
+		};
+
+		async function loadMap(latitude, longitude, zoomLevel) {
+			try {
+				const { Map } = await google.maps.importLibrary('maps');
+				const { AdvancedMarkerElement } = await google.maps.importLibrary('marker');
+
+				const position = {
+					lat: Number(latitude),
+					lng: Number(longitude)
+				};
+
+				const map = new Map(document.getElementById('map'), {
+					zoom: zoomLevel,
+					center: position,
+					mapTypeId: mapConfig.mapType,
+					mapId: mapConfig.mapId
+				});
+
+				const answer = document.createElement('img');
+				answer.src = 'images/answer.svg';
+				answer.alt = 'No.';
+				answer.style.transform = 'translate(64px, 0)';
+
+				new AdvancedMarkerElement({
+					position,
+					map,
+					content: answer,
+					title: 'No.'
+				});
+			} catch (error) {
+				console.error('Error loading map:', error);
 			}
 		}
 
-		function successPosition(position) {
+		function getRandomCoordinate(max) {
+			return (Math.cos(Math.random() * max) * max).toFixed(6);
+		}
+
+		function successPosition({ coords }) {
 			loadMap(
-				position.coords.latitude,
-				position.coords.longitude, 14
+				coords.latitude,
+				coords.longitude,
+				mapConfig.zoom.location,
 			);
 		}
 
 		function errorPosition() {
 			loadMap(
-				(Math.cos(Math.random() * 70) * 70).toFixed(6),
-				(Math.cos(Math.random() * 180) * 180).toFixed(6), 3
+				getRandomCoordinate(70),
+				getRandomCoordinate(180),
+				mapConfig.zoom.default
 			);
 		}
 
-		function loadMap(latitude, longitude, level) {
+		function initGeolocation() {
+			if (!navigator.geolocation) {
+				errorPosition();
+				return;
+			}
 
-			var position = new google.maps.LatLng(latitude, longitude)
-
-			var map = new google.maps.Map(
-				document.getElementById('map'),
-				{
-					zoom: level,
-					center: position,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				}
+			navigator.geolocation.getCurrentPosition(
+				successPosition,
+				errorPosition,
 			);
-
-			var answer = {
-		        url: 'images/answer.svg',
-		        anchor: new google.maps.Point(64, 278),
-		        scaledSize: new google.maps.Size(242, 278)
-		    }
-
-			var icon = new google.maps.Marker({
-				position: position,
-				map: map,
-				icon: answer
-			})
 		}
+
+		initGeolocation();
 	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSWOpxSqLN6lsau6J7tOlrA5n1I-dsC1k&callback=getLocation"></script>
 </head>
-<body class="map" id="map">
-	<h1 class="question">Is Geolocation part of HTML5?</h1>
-	<p class="answer">No.</p>
-
-	<div class="spinner"></div>
-
+<body id="map">
+	<h1>Is Geolocation part of HTML5?</h1>
+	<p>No.</p>
+	<spin-ner></spin-ner>
 	<!--
-		Author: Vadim Makeev
-		Twitter: https://twitter.com/@pepelsbey_dev
+		Author: Vadim Makeev, https://pepelsbey.dev
 		Code: https://github.com/pepelsbey/isgeolocationpartofhtml5.com
 	-->
 </body>
